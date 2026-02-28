@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="StockSense — Structured demand forecasting for small retail businesses. Reduce stockouts, lower overstock, and improve margins with time-series inventory analysis." />
+  <title>StockSense — Inventory Demand Forecasting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --dark-green: #1e3a2f;
+      --mid-green: #2d5540;
+      --cta-green: #254d38;
+      --cta-hover: #1a3d2b;
+      --text-primary: #0f1f17;
+      --text-secondary: #3a4a40;
+      --text-muted: #5a6b61;
+      --border-light: rgba(30, 58, 47, 0.15);
+      --white: #ffffff;
+      --off-white: #f8faf9;
+      --pill-bg: rgba(255, 255, 255, 0.72);
+      --pill-border: rgba(30, 58, 47, 0.2);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f5f2;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────── NAV ─────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(248, 250, 249, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-tab {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .nav-tab:hover {
+      color: var(--text-primary);
+      background: rgba(30, 58, 47, 0.06);
+    }
+
+    .nav-tab.active {
+      border-color: var(--border-light);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text-primary);
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link.has-dropdown::after {
+      content: '▾';
+      font-size: 10px;
+      margin-left: 4px;
+      opacity: 0.6;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-signup {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: transparent;
+      border: 1.5px solid var(--border-light);
+      padding: 8px 22px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-signup:hover {
+      background: var(--cta-green);
+      color: var(--white);
+      border-color: var(--cta-green);
+    }
+
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 130px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('hero-bg.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* Subtle top fade for nav readability */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to bottom, rgba(248, 250, 249, 0.6) 0%, transparent 100%);
+    }
+
+    /* Subtle vignette at bottom */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 280px;
+      background: linear-gradient(to top, rgba(240, 245, 242, 0.9) 0%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 780px;
+      padding: 0 24px;
+    }
+
+    /* Announcement pill */
+    .announcement-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 100px;
+      padding: 7px 18px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .announcement-pill-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--cta-green);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .announcement-pill span {
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+    }
+
+    /* Hero headline */
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    /* Hero subheadline */
+    .hero-subheadline {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+
+    /* CTA Button */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cta-green);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 500;
+      padding: 15px 32px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+      box-shadow: 0 4px 24px rgba(30, 58, 47, 0.28);
+    }
+
+    .btn-cta:hover {
+      background: var(--cta-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(30, 58, 47, 0.36);
+    }
+
+    .btn-cta:active {
+      transform: translateY(0);
+    }
+
+    .btn-cta .arrow {
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-cta:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* ─────────────── TRUST LINE ─────────────── */
+    .trust-section {
+      position: relative;
+      z-index: 2;
+      margin-top: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 60px;
+    }
+
+    .trust-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .trust-badges {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      opacity: 0.75;
+      transition: opacity 0.2s ease;
+      cursor: default;
+    }
+
+    .trust-badge:hover {
+      opacity: 1;
+    }
+
+    .trust-badge svg {
+      opacity: 0.7;
+    }
+
+    /* ─────────────── BENEFITS ─────────────── */
+    .benefits-section {
+      background: linear-gradient(to bottom, var(--off-white), #eaf0ec);
+      padding: 100px 40px;
+    }
+
+    .benefits-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .benefits-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mid-green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .benefits-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 64px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 36px 32px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(30, 58, 47, 0.1);
+    }
+
+    .benefit-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--dark-green), var(--mid-green));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .benefit-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .benefit-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .benefit-body {
+      font-size: 14.5px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ─────────────── METRICS STRIP ─────────────── */
+    .metrics-strip {
+      background: var(--dark-green);
+      padding: 64px 40px;
+    }
+
+    .metrics-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+
+    .metric-item {
+      padding: 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .metric-item:last-child {
+      border-right: none;
+    }
+
+    .metric-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .metric-number span {
+      color: rgba(144, 200, 160, 0.9);
+    }
+
+    .metric-label {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.58);
+      line-height: 1.5;
+    }
+
+    /* ─────────────── HOW IT WORKS ─────────────── */
+    .how-section {
+      background: #eaf0ec;
+      padding: 100px 40px;
+    }
+
+    .how-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .how-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mid-green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .how-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 64px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(12.5% + 20px);
+      right: calc(12.5% + 20px);
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border-light), var(--border-light), transparent);
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .step-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark-green);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-body {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ─────────────── CTA BANNER ─────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--dark-green) 0%, var(--mid-green) 100%);
+      padding: 96px 40px;
+      text-align: center;
+    }
+
+    .cta-banner-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cta-banner-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-banner-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 44px;
+      line-height: 1.6;
+    }
+
+    .btn-cta-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 500;
+      padding: 15px 36px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-cta-light:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-cta-light .arrow {
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-cta-light:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* ─────────────── FOOTER ─────────────── */
+    footer {
+      background: #0f1f17;
+      padding: 56px 40px 40px;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 40px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      max-width: 240px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.65;
+    }
+
+    .footer-links-group {
+      display: flex;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal a:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ─────────────── ANIMATIONS ─────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up-d1 {
+      transition-delay: 0.05s;
+    }
+
+    .fade-up-d2 {
+      transition-delay: 0.15s;
+    }
+
+    .fade-up-d3 {
+      transition-delay: 0.25s;
+    }
+
+    .fade-up-d4 {
+      transition-delay: 0.35s;
+    }
+
+    /* ─────────────── RESPONSIVE ─────────────── */
+    @media (max-width: 900px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-center {
+        display: none;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metric-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .metric-item:nth-child(2n) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .metric-item:last-child {
+        border-bottom: none;
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+
+      .steps-grid::before {
+        display: none;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .footer-links-group {
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-tabs {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 110px;
+      }
+
+      .announcement-pill span {
+        font-size: 11.5px;
+      }
+
+      .how-inner .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits-section,
+      .how-section,
+      .cta-banner {
+        padding: 72px 24px;
+      }
+
+      .footer-links-group {
+        flex-direction: column;
+        gap: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <!-- Logo mark -->
+      <a href="#" class="logo" aria-label="StockSense Home">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="#1e3a2f" />
+            <path d="M8 22 L12 14 L16 18 L20 10 L24 16" stroke="white" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" />
+            <circle cx="24" cy="16" r="2" fill="#90c8a0" />
+          </svg>
+        </div>
+      </a>
+      <div class="nav-tabs">
+        <button class="nav-tab active" id="tab-individual">Individual</button>
+        <button class="nav-tab" id="tab-company">Company</button>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#how" class="nav-link has-dropdown">Solutions</a>
+      <a href="#about" class="nav-link">About us</a>
+      <a href="#" class="nav-link">Blog</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="/" class="btn-signup">Login</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" role="img" aria-label="Serene misty mountain valley background"></div>
+
+    <div class="hero-content">
+      <!-- Announcement pill -->
+      <div class="announcement-pill fade-up">
+        <div class="announcement-pill-dot"></div>
+        <span>Now supports seasonal decomposition & SKU-level confidence intervals</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-headline fade-up fade-up-d1">
+        Forecast Demand.<br />Stop Guessing Inventory.
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="hero-subheadline fade-up fade-up-d2">
+        StockSense applies structured time-series analysis to your historical sales data — separating trend,
+        seasonality, and residual demand — so you always know what to stock, and when.
+      </p>
+
+      <!-- CTA -->
+      <a href="/" class="btn-cta fade-up fade-up-d3" id="hero-cta">
+        Login
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Trust / Logos -->
+    <div class="trust-section fade-up fade-up-d4">
+      <p class="trust-label">Built on proven forecasting methods</p>
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          Moving Averages
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18" />
+            <path d="m7 12 4-4 4 4 4-4" />
+          </svg>
+          Exponential Smoothing
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4l3 3" />
+          </svg>
+          Seasonal Decomposition
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="4" />
+            <path d="M7 12h10M7 8h6M7 16h8" />
+          </svg>
+          CSV Upload
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+          SKU-Level Insight
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section" id="features">
+    <div class="benefits-inner">
+      <p class="benefits-eyebrow fade-up">Why StockSense</p>
+      <h2 class="benefits-heading fade-up">Forecasting that accounts for how retail actually works.</h2>
+
+      <div class="benefits-grid">
+        <!-- Card 1 -->
+        <div class="benefit-card fade-up fade-up-d1">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 3v18h18" />
+              <path d="m7 16 4-8 4 4 4-6" />
+            </svg>
+          </div>
+          <h3 class="benefit-title">Structured Time-Series Modeling</h3>
+          <p class="benefit-body">
+            Upload your historical sales CSV and StockSense automatically separates trend, seasonality, and residual
+            components — no manual configuration required. Each SKU gets its own model.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="benefit-card fade-up fade-up-d2">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2v20M2 12h20" />
+              <circle cx="12" cy="12" r="4" />
+            </svg>
+          </div>
+          <h3 class="benefit-title">Quantified Uncertainty</h3>
+          <p class="benefit-body">
+            Every forecast includes a confidence interval — a statistically grounded upper and lower bound. Know the
+            realistic range of demand, not just a single optimistic number.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="benefit-card fade-up fade-up-d3">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
+          </div>
+          <h3 class="benefit-title">Actionable Restocking Recommendations</h3>
+          <p class="benefit-body">
+            Translate forecasts into concrete reorder decisions. StockSense calculates recommended restock quantities
+            per SKU — factoring in lead time, safety stock, and demand variability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-strip">
+    <div class="metrics-inner">
+      <div class="metric-item fade-up">
+        <div class="metric-number"><span>↓</span> 34%</div>
+        <div class="metric-label">Average reduction in<br />excess stock holding costs</div>
+      </div>
+      <div class="metric-item fade-up fade-up-d1">
+        <div class="metric-number"><span>↓</span> 41%</div>
+        <div class="metric-label">Fewer stockouts per<br />quarter, on average</div>
+      </div>
+      <div class="metric-item fade-up fade-up-d2">
+        <div class="metric-number">2×</div>
+        <div class="metric-label">Faster reorder decisions<br />vs. spreadsheet methods</div>
+      </div>
+      <div class="metric-item fade-up fade-up-d3">
+        <div class="metric-number"><span>+</span>18%</div>
+        <div class="metric-label">Gross margin improvement<br />in first 6 months</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="how-inner">
+      <p class="how-eyebrow fade-up">How it works</p>
+      <h2 class="how-heading fade-up">From raw sales data to a clear restock plan — in four steps.</h2>
+
+      <div class="steps-grid">
+        <div class="step-item fade-up fade-up-d1">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Upload your sales CSV</div>
+            <p class="step-body">Drop in historical sales data with date and SKU columns. StockSense handles the rest —
+              no cleaning or formatting required.</p>
+          </div>
+        </div>
+        <div class="step-item fade-up fade-up-d2">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Seasonal decomposition runs automatically</div>
+            <p class="step-body">The model identifies trend, seasonal patterns, and irregular demand signals across each
+              product line.</p>
+          </div>
+        </div>
+        <div class="step-item fade-up fade-up-d3">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Forecasts with confidence intervals</div>
+            <p class="step-body">View 30, 60, or 90-day demand projections per SKU — with upper and lower bounds to
+              inform your planning range.</p>
+          </div>
+        </div>
+        <div class="step-item fade-up fade-up-d4">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Act on restocking recommendations</div>
+            <p class="step-body">Get specific reorder quantities and timing suggestions, calibrated to your lead times
+              and desired service level.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner" id="cta">
+    <p class="cta-banner-eyebrow fade-up">Login</p>
+    <h2 class="cta-banner-heading fade-up">Your next stockout is preventable.</h2>
+    <p class="cta-banner-sub fade-up">Upload your first CSV and see a demand forecast within minutes. No setup. No code.
+    </p>
+    <a href="/" class="btn-cta-light fade-up" id="cta-main">
+      Login
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="about">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="#2d5540" />
+            <path d="M8 22 L12 14 L16 18 L20 10 L24 16" stroke="white" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="24" cy="16" r="2" fill="#90c8a0" />
+          </svg>
+          <span class="footer-logo-text">StockSense</span>
+        </div>
+        <p class="footer-tagline">Structured demand forecasting for small retail businesses. Know what to stock — before
+          you run out.</p>
+      </div>
+
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#">Features</a>
+          <a href="#">Pricing</a>
+          <a href="#">Changelog</a>
+          <a href="#">Roadmap</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Documentation</a>
+          <a href="#">API Reference</a>
+          <a href="#">Blog</a>
+          <a href="#">Case Studies</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 StockSense. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    // Observe all fade-up elements
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Make hero elements visible immediately
+    document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 100 + 100);
+    });
+
+    // Nav tab toggle
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Subtle parallax on hero background
+    const heroBg = document.querySelector('.hero-bg');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          heroBg.style.transform = `translateY(${scrollY * 0.25}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  </script>
+
+</body>
+
+</html>

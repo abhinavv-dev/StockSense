@@ -5,7 +5,7 @@
 
 ---
 
-# 1️⃣ Project Overview  
+# 1 Project Overview  
 
 ## 1.1 Problem Title  
 **Inventory Demand Forecasting Tool**
@@ -29,7 +29,7 @@ Traditional manual or rule-based forecasting systems fail to capture complex dem
 
 ---
 
-# 2️⃣ Target Users  
+# 2 Target Users  
 
 - Retail Store Owners  
 - E-commerce Businesses  
@@ -39,7 +39,7 @@ Traditional manual or rule-based forecasting systems fail to capture complex dem
 
 ---
 
-# 3️⃣ Existing Gaps in Current Systems  
+# 3 Existing Gaps in Current Systems  
 
 - Static rule-based forecasting  
 - No SKU-level intelligence  
@@ -50,7 +50,7 @@ Traditional manual or rule-based forecasting systems fail to capture complex dem
 
 ---
 
-# 4️⃣ Problem Understanding & Approach  
+# 4 Problem Understanding & Approach  
 
 ## 4.1 Root Cause Analysis  
 
@@ -72,7 +72,7 @@ StockSense addresses these challenges by:
 
 ---
 
-# 5️⃣ Proposed Solution  
+# 5 Proposed Solution  
 
 ## 5.1 Solution Overview  
 
@@ -96,7 +96,7 @@ StockSense is a full-stack AI-powered system that predicts future SKU demand and
 
 ---
 
-# 6️⃣ System Architecture  
+# 6 System Architecture  
 
 ## 6.1 High-Level Workflow  
 
@@ -118,15 +118,9 @@ User → Frontend → Backend → ML Model → Database → Response → Dashboa
 ---
 
 
-# 7️⃣ Database Design  
+# 7 Database Design   
 
-## 7.1 ER Diagram  
-
-(Add ER diagram image here)  
-
----
-
-## 7.2 Entities with Sample Records  
+## 7.1 Entities with Sample Records  
 
 ### 👤 User  
 
@@ -170,7 +164,7 @@ User → Frontend → Backend → ML Model → Database → Response → Dashboa
 
 ---
 
-## 7.3 Relationships  
+## 7.2 Relationships  
 
 - **One SKU → Many Sales Records**  
   Example: SKU101 has multiple sales entries (S001, S002).  
@@ -184,7 +178,7 @@ User → Frontend → Backend → ML Model → Database → Response → Dashboa
 ---
 
 
-# 8️⃣ Model Selection  
+# 8 Model Selection  
 
 ## 8.1 Primary Model  
 Interactive M5 EDA
@@ -234,7 +228,7 @@ Measures the average percentage difference between actual and predicted values. 
 These metrics together provide a comprehensive assessment of forecasting performance, including error magnitude, percentage deviation, and variance explanation.
 ---
 
-# 9️⃣ Technology Stack  
+# 9 Technology Stack  
 
 ## 9.1 Frontend  
 
@@ -260,30 +254,11 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ## 9.5 Deployment  
 
-- Docker  
-- Render / AWS / Railway  
+- vercel  
 
 ---
 
-# 🔟 API Documentation  
-
-## Endpoint 1  
-GET /forecast/{sku_id}  
-Returns future demand forecast  
-
-## Endpoint 2  
-GET /inventory-alert/{sku_id}  
-Returns stock risk status  
-
-## Endpoint 3  
-POST /predict  
-Accepts SKU + date range and returns forecast  
-
-(Add Postman / Thunder Client screenshots here)  
-
----
-
-# 1️⃣1️⃣ Module-wise Development Plan  
+# 10 Module-wise Development Plan  
 
 ## Checkpoint 1: Research & Planning  
 - Problem analysis  
@@ -319,7 +294,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣2️⃣ End-to-End Workflow  
+# 11 End-to-End Workflow  
 
 1. User selects SKU  
 2. Backend fetches historical data  
@@ -330,7 +305,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣3️⃣ Demo & Repository  
+# 12 Demo & Repository  
 
 - Live Demo: (Add deployed link here)  
 - Demo Video: (Add video link here)  
@@ -338,7 +313,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣4️⃣ Hackathon Deliverables  
+# 13 Hackathon Deliverables  
 
 - Complete full-stack application  
 - SKU-level forecasting model  
@@ -349,7 +324,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣5️⃣ Team Roles & Responsibilities  
+# 14 Team Roles & Responsibilities  
 
 | Member Name       | Role                  | Responsibilities |
 |-------------------|-----------------------|------------------|
@@ -359,7 +334,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣6️⃣ Future Scope & Scalability  
+# 15 Future Scope & Scalability  
 
 ## Short-Term  
 
@@ -376,7 +351,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣7️⃣ Known Limitations  
+# 16 Known Limitations  
 
 - Dependent on historical data quality  
 - Sudden market shocks may reduce accuracy  
@@ -385,7 +360,7 @@ Accepts SKU + date range and returns forecast
 
 ---
 
-# 1️⃣8️⃣ Impact  
+# 17 Impact  
 
 - Reduces stockouts  
 - Minimizes overstock  

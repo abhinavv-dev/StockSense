@@ -5,7 +5,7 @@
 
 ---
 
-# 1 Project Overview  
+# 1) Project Overview  
 
 ## 1.1 Problem Title  
 **Inventory Demand Forecasting Tool**
@@ -29,7 +29,7 @@ Traditional manual or rule-based forecasting systems fail to capture complex dem
 
 ---
 
-# 2 Target Users  
+# 2) Target Users  
 
 - Retail Store Owners  
 - E-commerce Businesses  
@@ -39,7 +39,7 @@ Traditional manual or rule-based forecasting systems fail to capture complex dem
 
 ---
 
-# 3 Existing Gaps in Current Systems  
+# 3) Existing Gaps in Current Systems  
 
 - Static rule-based forecasting  
 - No SKU-level intelligence  
@@ -50,7 +50,7 @@ Traditional manual or rule-based forecasting systems fail to capture complex dem
 
 ---
 
-# 4 Problem Understanding & Approach  
+# 4) Problem Understanding & Approach  
 
 ## 4.1 Root Cause Analysis  
 
@@ -72,7 +72,7 @@ StockSense addresses these challenges by:
 
 ---
 
-# 5 Proposed Solution  
+# 5) Proposed Solution  
 
 ## 5.1 Solution Overview  
 
@@ -96,7 +96,7 @@ StockSense is a full-stack AI-powered system that predicts future SKU demand and
 
 ---
 
-# 6 System Architecture  
+# 6) System Architecture  
 
 ## 6.1 High-Level Workflow  
 
@@ -118,7 +118,7 @@ User → Frontend → Backend → ML Model → Database → Response → Dashboa
 ---
 
 
-# 7 Database Design   
+# 7) Database Design   
 
 ## 7.1 Entities with Sample Records  
 
@@ -178,7 +178,7 @@ User → Frontend → Backend → ML Model → Database → Response → Dashboa
 ---
 
 
-# 8 Model Selection  
+# 8) Model Selection  
 
 ## 8.1 Primary Model  
 Interactive M5 EDA
@@ -228,7 +228,7 @@ Measures the average percentage difference between actual and predicted values. 
 These metrics together provide a comprehensive assessment of forecasting performance, including error magnitude, percentage deviation, and variance explanation.
 ---
 
-# 9 Technology Stack  
+# 9) Technology Stack  
 
 ## 9.1 Frontend  
 
@@ -258,7 +258,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 10 Module-wise Development Plan  
+# 10) Module-wise Development Plan  
 
 ## Checkpoint 1: Research & Planning  
 - Problem analysis  
@@ -294,7 +294,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 11 End-to-End Workflow  
+# 11) End-to-End Workflow  
 
 1. User selects SKU  
 2. Backend fetches historical data  
@@ -305,7 +305,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 12 Demo & Repository  
+# 12) Demo & Repository  
 
 - Live Demo: (Add deployed link here)  
 - Demo Video: (Add video link here)  
@@ -313,7 +313,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 13 Hackathon Deliverables  
+# 13) Hackathon Deliverables  
 
 - Complete full-stack application  
 - SKU-level forecasting model  
@@ -324,7 +324,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 14 Team Roles & Responsibilities  
+# 14) Team Roles & Responsibilities  
 
 | Member Name       | Role                  | Responsibilities |
 |-------------------|-----------------------|------------------|
@@ -334,7 +334,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 15 Future Scope & Scalability  
+# 15) Future Scope & Scalability  
 
 ## Short-Term  
 
@@ -351,7 +351,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 16 Known Limitations  
+# 16) Known Limitations  
 
 - Dependent on historical data quality  
 - Sudden market shocks may reduce accuracy  
@@ -360,7 +360,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ---
 
-# 17 Impact  
+# 17) Impact  
 
 - Reduces stockouts  
 - Minimizes overstock  

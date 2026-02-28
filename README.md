@@ -1,4 +1,4 @@
-# 📦 StockSense  
+# StockSense  
 
 ## 🚀 One-Line Project Description  
 **StockSense** is an AI-powered inventory intelligence system that predicts SKU-level demand, optimizes restocking decisions, and prevents overstocking and stockouts using advanced time-series forecasting.

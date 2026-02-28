@@ -1,480 +1,384 @@
-# StockSense
+# 📦 StockSense  
 
+## 🚀 One-Line Project Description  
+**StockSense** is an AI-powered inventory intelligence system that predicts SKU-level demand, optimizes restocking decisions, and prevents overstocking and stockouts using advanced time-series forecasting.
 
-One-line project description.
+---
 
-An AI-powered inventory intelligence system that predicts SKU-level demand, optimizes restocking decisions, and prevents overstocking and stockouts using time-series forecasting.
+# 1️⃣ Project Overview  
 
-# 1. Problem Statement
-Problem Title
+## 1.1 Problem Title  
+**Inventory Demand Forecasting Tool**
 
-Inventory Demand Forecasting Tool
+## 1.2 Problem Description  
 
-# Problem Description
+Retailers and e-commerce businesses face significant challenges in maintaining optimal inventory levels due to:
 
-Retailers and e-commerce businesses struggle to maintain optimal inventory levels due to unpredictable demand patterns, seasonality, trends, and external factors. Poor forecasting leads to:
+- Unpredictable demand patterns  
+- Seasonality and trends  
+- External market factors  
+- SKU-level demand variation  
 
-Overstocking (capital blockage)
+Poor forecasting results in:
 
-Stockouts (lost sales & customer dissatisfaction)
+- **Overstocking** → Capital blockage  
+- **Stockouts** → Lost sales & customer dissatisfaction  
+- **Inefficient supply chain planning**  
 
-Inefficient supply chain planning
+Traditional manual or rule-based forecasting systems fail to capture complex demand dynamics at the SKU level.
 
-Manual or rule-based forecasting systems fail to capture complex demand patterns at the SKU level.
+---
 
-# Target Users
+# 2️⃣ Target Users  
 
-Retail Store Owners
+- Retail Store Owners  
+- E-commerce Businesses  
+- Warehouse Managers  
+- Supply Chain Analysts  
+- FMCG Companies  
 
-E-commerce Businesses
+---
 
-Warehouse Managers
+# 3️⃣ Existing Gaps in Current Systems  
 
-Supply Chain Analysts
+- Static rule-based forecasting  
+- No SKU-level intelligence  
+- Lack of seasonality modeling  
+- No confidence interval estimation  
+- Poor real-time decision support  
+- Limited data-driven restocking alerts  
 
-FMCG Companies
+---
 
-# Existing Gaps
+# 4️⃣ Problem Understanding & Approach  
 
-Static rule-based forecasting
+## 4.1 Root Cause Analysis  
 
-No SKU-level intelligence
+- Demand is non-linear and seasonal  
+- SKU-level patterns differ significantly  
+- External trends influence purchasing behavior  
+- Manual forecasting ignores historical signals  
+- Limited predictive automation for SMEs  
 
-Lack of seasonality modeling
+## 4.2 Solution Strategy  
 
-No confidence intervals
+StockSense addresses these challenges by:
 
-Poor real-time decision support
+- Leveraging historical sales data  
+- Applying time-series forecasting models  
+- Capturing trend + seasonality + noise  
+- Generating demand predictions with confidence intervals  
+- Providing smart restocking recommendations  
 
-Limited data-driven restocking alerts
+---
 
-# 2. Problem Understanding & Approach
-Root Cause Analysis
+# 5️⃣ Proposed Solution  
 
-Demand is non-linear and seasonal
+## 5.1 Solution Overview  
 
-SKU-level patterns differ significantly
+StockSense is a full-stack AI-powered system that predicts future SKU demand and recommends optimized restocking quantities.
 
-External trends affect sales unpredictably
+## 5.2 Core Capabilities  
 
-Manual forecasting ignores historical signals
+- Predict future sales per SKU  
+- Identify trends and seasonality  
+- Estimate uncertainty ranges  
+- Recommend restock quantities  
 
-No predictive automation in small/mid businesses
+## 5.3 Key Features  
 
-Solution Strategy
+- SKU-wise demand forecasting  
+- Seasonal decomposition  
+- Confidence interval prediction  
+- Low-stock alert system  
+- Smart restocking recommendations  
+- Interactive dashboard with visualization  
+- API-based model access  
+- Real-time forecast generation  
 
-Use historical sales data
+---
 
-Apply time-series forecasting models
+# 6️⃣ System Architecture  
 
-Capture trend + seasonality + noise
+## 6.1 High-Level Workflow  
 
-Generate demand prediction + confidence interval
+User → Frontend → Backend → ML Model → Database → Response → Dashboard  
 
-Provide smart restocking recommendations
+## 6.2 Architecture Description  
 
-# 3. Proposed Solution
-Solution Overview
+1. User interacts with dashboard (Frontend).  
+2. Request is sent to Backend API.  
+3. Backend retrieves historical data from Database.  
+4. ML Model processes data and generates forecast.  
+5. Forecast and recommendations are returned to Backend.  
+6. Backend sends structured response to Frontend.  
+7. Dashboard displays insights and alerts.  
 
-StockSense is a full-stack AI-powered system that predicts future SKU demand and suggests optimized restocking quantities.
+## 6.3 Architecture Diagram  
 
-Core Idea
+(Add system architecture diagram image here)  
 
-Use machine learning-based time-series forecasting to:
+---
 
-Predict future sales per SKU
+# 7️⃣ Database Design  
 
-Identify trends & seasonality
+## 7.1 ER Diagram  
 
-Estimate uncertainty range
+(Add ER diagram image here)  
 
-Recommend restock quantity
+## 7.2 Entities  
 
-Key Features
+### User  
+- `user_id` (PK)  
+- `name`  
+- `email`  
+- `role`  
 
-SKU-wise demand forecasting
+### Product (SKU)  
+- `sku_id` (PK)  
+- `product_name`  
+- `category`  
+- `price`  
 
-Seasonal decomposition
+### Sales  
+- `sale_id` (PK)  
+- `sku_id` (FK)  
+- `date`  
+- `quantity_sold`  
 
-Confidence interval prediction
+### Inventory  
+- `inventory_id` (PK)  
+- `sku_id` (FK)  
+- `current_stock`  
+- `reorder_level`  
 
-Low-stock alert system
+## 7.3 Relationships  
 
-Smart restocking recommendation
+- One SKU → Many Sales records  
+- One SKU → One Inventory record  
 
-Dashboard with visualization
+---
 
-API-based model access
+# 8️⃣ Dataset  
 
-Real-time forecast generation
+## 8.1 Dataset Name  
+Retail Sales Forecasting Dataset  
 
-# 4. System Architecture
-High-Level Flow
+## 8.2 Source  
+Kaggle  
 
-User → Frontend → Backend → Model → Database → Response
+## 8.3 Data Type  
 
-Architecture Description
+Time-series sales data including:  
 
-User interacts with dashboard (Frontend).
+- Date  
+- SKU/Product ID  
+- Units Sold  
+- Store Information  
+- Category  
 
-Request is sent to Backend API.
+## 8.4 Selection Justification  
 
-Backend fetches historical data from Database.
+- Real-world retail scenario  
+- Structured time-series format  
+- Multiple SKUs  
+- Suitable for forecasting models  
 
-ML Model processes data & generates forecast.
+## 8.5 Preprocessing Steps  
 
-Forecast + recommendations returned to Backend.
+- Handling missing values  
+- Date formatting  
+- Feature engineering (day, month, season)  
+- Aggregation at SKU level  
+- Time-based train-test split  
+- Normalization (if required)  
 
-Backend sends structured response to Frontend.
+---
 
-Dashboard displays insights & alerts.
+# 9️⃣ Model Selection  
 
-Architecture Diagram
+## 9.1 Primary Model  
+Facebook Prophet  
 
-(Add system architecture diagram image here)
+## 9.2 Selection Rationale  
 
-# 5. Database Design
-ER Diagram
+- Handles seasonality effectively  
+- Robust to missing data  
+- Automatically captures trend + seasonality  
+- Interpretable outputs  
+- Fast training time  
 
-(Add ER diagram image here)
+## 9.3 Alternative Models Considered  
 
-ER Diagram Description
+- ARIMA  
+- SARIMA  
+- LSTM  
+- XGBoost Regression  
 
-Entities:
+## 9.4 Evaluation Metrics  
 
-User
+- MAE (Mean Absolute Error)  
+- RMSE (Root Mean Square Error)  
+- MAPE (Mean Absolute Percentage Error)  
+- R² Score  
 
-user_id (PK)
+---
 
-name
+# 🔟 Technology Stack  
 
-email
+## 10.1 Frontend  
 
-role
+- React.js  
+- Tailwind CSS  
+- Chart.js / Recharts  
 
-Product (SKU)
+## 10.2 Backend  
 
-sku_id (PK)
+- FastAPI  
+- Python  
 
-product_name
+## 10.3 Machine Learning  
 
-category
+- Prophet  
+- Scikit-learn  
+- Pandas  
+- NumPy  
 
-price
+## 10.4 Database  
 
-Sales
+- PostgreSQL  
 
-sale_id (PK)
+## 10.5 Deployment  
 
-sku_id (FK)
+- Docker  
+- Render / AWS / Railway  
 
-date
+---
 
-quantity_sold
+# 1️⃣1️⃣ API Documentation  
 
-Inventory
+## Endpoint 1  
+GET /forecast/{sku_id}  
+Returns future demand forecast  
 
-inventory_id (PK)
+## Endpoint 2  
+GET /inventory-alert/{sku_id}  
+Returns stock risk status  
 
-sku_id (FK)
+## Endpoint 3  
+POST /predict  
+Accepts SKU + date range and returns forecast  
 
-current_stock
+(Add Postman / Thunder Client screenshots here)  
 
-reorder_level
+---
 
-Relationships:
+# 1️⃣2️⃣ Module-wise Development Plan  
 
-One SKU → Many Sales records
+## Checkpoint 1: Research & Planning  
+- Problem analysis  
+- Dataset selection  
+- Model research  
+- System design draft  
 
-One SKU → One Inventory record
+## Checkpoint 2: Backend Development  
+- API endpoints  
+- Database schema  
+- Model loading logic  
 
-# 6. Dataset Selected
-Dataset Name
+## Checkpoint 3: Frontend Development  
+- Dashboard UI  
+- SKU selection panel  
+- Forecast visualization  
 
-Retail Sales Forecasting Dataset
+## Checkpoint 4: Model Training  
+- Clean dataset  
+- Trained Prophet model  
+- Evaluation report  
 
-Source
+## Checkpoint 5: Model Integration  
+- API + Model connection  
+- Real-time prediction endpoint  
+- Error handling  
 
-Kaggle
+## Checkpoint 6: Deployment  
+- Live backend  
+- Live frontend  
+- Production database  
+- Dockerized setup  
 
-Data Type
+---
 
-Time-series sales data including:
+# 1️⃣3️⃣ End-to-End Workflow  
 
-Date
+1. User selects SKU  
+2. Backend fetches historical data  
+3. Model generates 30-day forecast  
+4. Confidence interval calculated  
+5. Restock recommendation generated  
+6. Dashboard displays forecast and alerts  
 
-SKU/Product ID
+---
 
-Units Sold
+# 1️⃣4️⃣ Demo & Repository  
 
-Store Information
+- Live Demo: (Add deployed link here)  
+- Demo Video: (Add video link here)  
+- GitHub Repository: (Add GitHub repo link here)  
 
-Category
+---
 
-Selection Reason
+# 1️⃣5️⃣ Hackathon Deliverables  
 
-Real-world retail scenario
+- Complete full-stack application  
+- SKU-level forecasting model  
+- REST APIs  
+- Dashboard with visualization  
+- Inventory alert system  
+- Deployment-ready architecture  
 
-Time-series structure
+---
 
-Multiple SKUs
+# 1️⃣6️⃣ Team Roles & Responsibilities  
 
-Suitable for forecasting models
+| Member Name       | Role                  | Responsibilities |
+|-------------------|-----------------------|------------------|
+| Abhinav Sharma    | ML & Backend Lead     | Model training, API development, database design |
+| Member 2          | Frontend Developer    | UI design, dashboard, visualization |
+| Member 3          | DevOps Engineer       | Deployment, Docker, cloud setup |
 
-Preprocessing Steps
+---
 
-Handling missing values
+# 1️⃣7️⃣ Future Scope & Scalability  
 
-Date formatting
+## Short-Term  
 
-Feature engineering (day, month, season)
+- Multi-store support  
+- Automated reorder system  
+- Email/SMS alerts  
 
-Aggregation at SKU level
+## Long-Term  
 
-Train-test split (time-based)
+- Deep learning forecasting (LSTM/Transformer)  
+- ERP system integration  
+- Real-time streaming data  
+- AI-driven supply chain optimization  
 
-Normalization (if required)
+---
 
-# 7. Model Selected
-Model Name
+# 1️⃣8️⃣ Known Limitations  
 
-Facebook Prophet (Primary Model)
+- Dependent on historical data quality  
+- Sudden market shocks may reduce accuracy  
+- Limited external feature integration  
+- Prophet assumptions may not fit all SKUs  
 
-Selection Reasoning
+---
 
-Handles seasonality well
+# 1️⃣9️⃣ Impact  
 
-Robust to missing data
-
-Captures trend + seasonality automatically
-
-Easy interpretability
-
-Fast to train
-
-Alternatives Considered
-
-ARIMA
-
-SARIMA
-
-LSTM
-
-XGBoost Regression
-
-Evaluation Metrics
-
-MAE (Mean Absolute Error)
-
-RMSE (Root Mean Square Error)
-
-MAPE (Mean Absolute Percentage Error)
-
-R² Score
-
-# 8. Technology Stack
-Frontend
-
-React.js
-
-Tailwind CSS
-
-Chart.js / Recharts
-
-Backend
-
-FastAPI
-
-Python
-
-ML/AI
-
-Prophet
-
-Scikit-learn
-
-Pandas
-
-NumPy
-
-Database
-
-PostgreSQL
-
-Deployment
-
-Docker
-
-Render / AWS / Railway
-
-# 9. API Documentation & Testing
-API Endpoints List
-Endpoint 1:
-
-GET /forecast/{sku_id}
-Returns future demand forecast
-
-Endpoint 2:
-
-GET /inventory-alert/{sku_id}
-Returns stock risk status
-
-Endpoint 3:
-
-POST /predict
-Accepts SKU + date range & returns forecast
-
-API Testing Screenshots
-
-(Add Postman / Thunder Client screenshots here)
-
-# 10. Module-wise Development & Deliverables
-Checkpoint 1: Research & Planning
-
-Deliverables:
-
-Problem analysis
-
-Dataset selection
-
-Model research
-
-System design draft
-
-Checkpoint 2: Backend Development
-
-Deliverables:
-
-API endpoints
-
-Database schema
-
-Model loading logic
-
-Checkpoint 3: Frontend Development
-
-Deliverables:
-
-Dashboard UI
-
-SKU selection panel
-
-Forecast visualization
-
-Checkpoint 4: Model Training
-
-Deliverables:
-
-Clean dataset
-
-Trained Prophet model
-
-Evaluation report
-
-Checkpoint 5: Model Integration
-
-Deliverables:
-
-API + Model connection
-
-Real-time prediction endpoint
-
-Error handling
-
-Checkpoint 6: Deployment
-
-Deliverables:
-
-Live backend
-
-Live frontend
-
-Production database
-
-Dockerized setup
-
-# 11. End-to-End Workflow
-
-User selects SKU
-
-Backend fetches historical data
-
-Model generates 30-day forecast
-
-Confidence interval calculated
-
-Restock recommendation generated
-
-Dashboard displays forecast + alerts
-
-# 12. Demo & Video
-
-Live Demo Link:
-(Add deployed link here)
-
-Demo Video Link:
-(Add video link here)
-
-GitHub Repository:
-(Add GitHub repo link here)
-
-# 13. Hackathon Deliverables Summary
-
-Complete full-stack application
-
-SKU-level forecasting model
-
-REST APIs
-
-Dashboard with visualization
-
-Inventory alert system
-
-Deployment-ready architecture
-
-# 14. Team Roles & Responsibilities
-Member Name	Role	Responsibilities
-Abhinav Sharma	ML & Backend Lead	Model training, API development, database design
-Member 2	Frontend Developer	UI design, dashboard, visualization
-Member 3	DevOps	Deployment, Docker, cloud setup
-
-# 15. Future Scope & Scalability
-Short-Term
-
-Multi-store support
-
-Automated reorder system
-
-Email/SMS alerts
-
-Long-Term
-
-Deep learning forecasting (LSTM/Transformer)
-
-Integration with ERP systems
-
-Real-time streaming data
-
-AI-driven supply chain optimization
-
-# 16. Known Limitations
-
-Depends on historical data quality
-
-Sudden market shocks may reduce accuracy
-
-Limited external feature integration
-
-Prophet assumptions may not fit all SKUs
-
-# 17. Impact
-
-Reduces stockouts
-
-Minimizes overstock
-
-Improves cash flow
-
-Enhances supply chain efficiency
-
-Data-driven decision making for SMEs
+- Reduces stockouts  
+- Minimizes overstock  
+- Improves cash flow  
+- Enhances supply chain efficiency  
+- Enables data-driven decision-making for SMEs  

@@ -23,7 +23,6 @@ export const NAV_LINKS = [
   { name: "Customers", href: "#" },
   { name: "Products", href: "#/", path: "dashboard" },
   { name: "Inventory Intelligence", href: "#/inventory-intelligence", path: "inventory-intelligence", badge: "New" },
-  { name: "SKU Demand Analysis", href: "#/sku-demand-analysis", path: "sku-demand-analysis", badge: "New" },
 ];
 
 export const INVENTORY_DATA = [

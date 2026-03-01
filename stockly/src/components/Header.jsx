@@ -22,9 +22,8 @@ export default function Header() {
   const hash = typeof window !== "undefined" ? (window.location.hash || "#/").slice(1) : "/";
   const isLinkActive = (link) => {
     if (!link.path) return false;
-    if (link.path === "dashboard") return hash === "/" || hash === "" || (!hash.startsWith("/inventory-intelligence") && !hash.startsWith("/sku-demand-analysis"));
+    if (link.path === "dashboard") return hash === "/" || hash === "" || !hash.startsWith("/inventory-intelligence");
     if (link.path === "inventory-intelligence") return hash.startsWith("/inventory-intelligence");
-    if (link.path === "sku-demand-analysis") return hash.startsWith("/sku-demand-analysis");
     return false;
   };
 

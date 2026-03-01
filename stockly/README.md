@@ -9,14 +9,7 @@ A dynamic inventory and product management dashboard with real-time charts and a
    npm install
    ```
 
-2. **Install Python backend dependencies** (for SKU Demand Analysis)
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   cd ..
-   ```
-
-3. **Run the app** (API server + frontend)
+2. **Run the app** (API server + frontend)
    ```bash
    npm run dev:all
    ```
@@ -27,20 +20,11 @@ A dynamic inventory and product management dashboard with real-time charts and a
    npm run dev      # Frontend at http://localhost:3000
    ```
 
-4. **Run Python backend** (for SKU Demand Analysis page)
-   ```bash
-   cd backend
-   python main.py
-   # Or: uvicorn main:app --reload --port 8000
-   ```
-   The Python API will be available at `http://localhost:8000`
-
-5. Open **http://localhost:3000** in your browser.
+3. Open **http://localhost:3000** in your browser.
    - **/** — Redirects to landing page
    - **/login/index.html** — Landing page (StockSense)
    - **/login/signin.html** — Login / credentials (admin/admin)
    - **/dashboard.html** — StockSense dashboard (after Login)
-   - **#/sku-demand-analysis** — SKU Demand Analysis page (requires Python backend)
 
 ## Features
 
@@ -50,11 +34,8 @@ A dynamic inventory and product management dashboard with real-time charts and a
 - **Search** – Filter products by name or category in the header
 - **Export** – Download CSV or JSON report
 - **Charts** – Inventory (digital vs physical), Sales breakdown by category, Demand & Supply over months
-- **SKU Demand Analysis** – Advanced demand forecasting with seasonality, trends, and restocking recommendations (Chart.js visualizations)
 
 ## API Endpoints
-
-### Node.js API (Port 3001)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -69,13 +50,6 @@ A dynamic inventory and product management dashboard with real-time charts and a
 | GET | `/api/metrics` | Total sales, churn rate |
 | GET | `/api/export/csv` | Export products as CSV |
 | GET | `/api/report` | Download full JSON report |
-
-### Python FastAPI (Port 8000)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/skus` | List available SKUs from CSV |
-| POST | `/api/demand-analysis` | Perform demand analysis with seasonality and trends |
 
 ## Data Flow
 

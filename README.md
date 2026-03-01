@@ -307,9 +307,9 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 # 12) Demo & Repository  
 
-- Live Demo: (Add deployed link here)  
-- Demo Video: (Add video link here)  
-- GitHub Repository: (Add GitHub repo link here)  
+- Live Demo: (https://stocksensehack.netlify.app/dashboard.html)
+- Demo Video: (https://drive.google.com/file/d/1piWLBuPigHSSxbTCBp0qQ7utyx-l9iz9/view?usp=sharing)
+- presentation: (https://drive.google.com/file/d/1IFnf7JwCjVIFTWpq7n9E9GfMQ4i0iP_1/view?usp=sharing)
 
 ---
 

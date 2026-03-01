@@ -309,7 +309,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 - Live Demo: (https://stocksensehack.netlify.app/dashboard.html)
 - Demo Video: (https://drive.google.com/file/d/1piWLBuPigHSSxbTCBp0qQ7utyx-l9iz9/view?usp=sharing)
-- presentation: (https://drive.google.com/file/d/1IFnf7JwCjVIFTWpq7n9E9GfMQ4i0iP_1/view?usp=sharing)
+- presentation: (https://drive.google.com/file/d/1OqOc2wp1Lk0kKEGZltNlMTR_qbeOowNR/view?usp=sharing)
 
 ---
 

@@ -254,7 +254,7 @@ These metrics together provide a comprehensive assessment of forecasting perform
 
 ## 9.5 Deployment  
 
-- vercel  
+- netlify  
 
 ---
 

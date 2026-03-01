@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StockSense — Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --dark-green: #1e3a2f;
+            --mid-green: #2d5540;
+            --cta-green: #254d38;
+            --cta-hover: #1a3d2b;
+            --text-primary: #0f1f17;
+            --text-secondary: #3a4a40;
+            --text-muted: #5a6b61;
+            --border-light: rgba(30, 58, 47, 0.15);
+            --white: #ffffff;
+            --off-white: #f8faf9;
+            --error-red: #d94b4b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f5f2;
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('hero-bg.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            z-index: -2;
+            opacity: 0.6;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(248, 250, 249, 0.8) 0%, rgba(240, 245, 242, 0.95) 100%);
+            z-index: -1;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 64px;
+            background: rgba(248, 250, 249, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .nav-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-primary);
+            background: rgba(30, 58, 47, 0.06);
+        }
+
+        /* LOGIN CONTAINER */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 60px rgba(30, 58, 47, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .login-header p {
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--text-primary);
+            background: #ffffff;
+            border: 1.5px solid var(--border-light);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(90, 107, 97, 0.5);
+        }
+
+        .form-control:focus {
+            border-color: var(--cta-green);
+            box-shadow: 0 0 0 3px rgba(37, 77, 56, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: var(--cta-green);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 14px 24px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 0.01em;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            background: var(--cta-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(30, 58, 47, 0.2);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 13.5px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(217, 75, 75, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .login-container {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="logo" aria-label="StockSense Home">
+            <div class="logo-icon">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="#1e3a2f" />
+                    <path d="M8 22 L12 14 L16 18 L20 10 L24 16" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" fill="none" />
+                    <circle cx="24" cy="16" r="2" fill="#90c8a0" />
+                </svg>
+            </div>
+        </a>
+        <a href="index.html" class="nav-btn">Back to Home</a>
+    </nav>
+    <div class="login-wrapper">
+        <div class="login-container fade-up">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Enter your credentials to access your forecasts.</p>
+            </div>
+            <div id="error-msg" class="error-message">Invalid username or password.</div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password"
+                        required>
+                </div>
+                <button type="submit" class="btn-submit">Sign In <span style="font-size: 16px;">→</span></button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+
+            try {
+                // Fetch credentials from the mock database text file
+                const response = await fetch('credentials.txt');
+
+                if (!response.ok) {
+                    throw new Error('Failed to load credentials database');
+                }
+
+                const data = await response.text();
+                const lines = data.split('\n');
+
+                let isValid = false;
+
+                // Check if input matches any credentials in file
+                for (const line of lines) {
+                    // Skip empty lines and comments
+                    const trimmed = line.trim();
+                    if (!trimmed || trimmed.startsWith('#')) continue;
+
+                    const [user, pass] = line.split(':');
+
+                    if (user.trim() === usernameInput && pass.trim() === passwordInput) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                if (isValid) {
+                    // Hide error if shown
+                    errorMsg.style.display = 'none';
+                    // Redirect to StockSense frontend
+                    window.location.href = '../stockly/dashboard.html';
+                }
+
+                else {
+                    // Show error message
+                    errorMsg.style.display = 'block';
+                }
+            }
+
+            catch (error) {
+                console.error('Login error:', error);
+                alert('There was an error verifying credentials. Make sure you are running via a local server (e.g. npx http-server) so fetch() works on local files.');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -202,7 +202,7 @@ function ProductModal({ product, onClose, onSave, mode = "edit" }) {
 }
 
 export default function RecentStocksTable() {
-  const { products, loading, addProduct, updateProduct, deleteProduct } = useStock();
+  const { products, loading, error, addProduct, updateProduct, deleteProduct, refresh } = useStock();
   const [selectedRows, setSelectedRows] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [modalProduct, setModalProduct] = useState(null);
@@ -279,6 +279,19 @@ export default function RecentStocksTable() {
     return (
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full flex items-center justify-center">
         <div className="animate-pulse text-gray-400">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col items-center justify-center gap-3">
+        <p className="text-amber-600 font-medium">Could not load products</p>
+        <p className="text-sm text-gray-500 text-center max-w-md">{error}</p>
+        <p className="text-xs text-gray-400">Make sure the API server is running on port 3001 (run from stockly: npm run dev)</p>
+        <button onClick={refresh} className="px-4 py-2 bg-lime-400 text-black rounded-lg text-sm font-medium hover:bg-lime-500">
+          Retry
+        </button>
       </div>
     );
   }

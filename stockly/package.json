@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "npm run dev:all",
-    "build": "vite build",
+    "build": "vite build --mode static && node scripts/generate-static-data.js",
     "preview": "vite preview",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist out",
     "lint": "echo 'No linting configured for JS'",
     "server": "node server/index.js",
-    "dev:all": "concurrently \"npm run server\" \"vite --port=3000\""
+    "start:python": "cd backend && python3 main.py",
+    "dev:all": "concurrently --names \"node,vite,python\" \"npm run server\" \"vite --port=3000\" \"npm run start:python\""
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

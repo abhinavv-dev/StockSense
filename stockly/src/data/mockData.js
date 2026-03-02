@@ -18,11 +18,11 @@ import {
 } from "lucide-react";
 
 export const NAV_LINKS = [
-  { name: "Home", href: "#" },
-  { name: "Calendar", href: "#" },
-  { name: "Customers", href: "#" },
+  { name: "Calendar", href: "#/calendar", path: "calendar" },
+  { name: "Customers", href: "#/customers", path: "customers", badgeIcon: "alert", badgeColor: "red" },
   { name: "Products", href: "#/", path: "dashboard" },
   { name: "Inventory Intelligence", href: "#/inventory-intelligence", path: "inventory-intelligence", badge: "New" },
+  { name: "SKU Demand Analysis", href: "#/sku-demand-analysis", path: "sku-demand-analysis", badge: "New" },
 ];
 
 export const INVENTORY_DATA = [

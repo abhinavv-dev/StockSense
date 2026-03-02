@@ -1,0 +1,200 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Apple Airpod 2nd Gen",
+      "variants_count": 3,
+      "date": "2025-09-22",
+      "amount": 289,
+      "quantity": 15,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1572569028738-411a197b83f2?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Airpod"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Macbook Pro 16\" 32/1TB",
+      "variants_count": 2,
+      "date": "2025-09-15",
+      "amount": 2890,
+      "quantity": 8,
+      "status": "Pending",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca4?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Laptop"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Gaming Mouse Pad",
+      "variants_count": 9,
+      "date": "2025-09-15",
+      "amount": 18,
+      "quantity": 120,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Mouse"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Apple Airpod Max",
+      "variants_count": 0,
+      "date": "2025-09-12",
+      "amount": 579,
+      "quantity": 6,
+      "status": "In Progress",
+      "image": "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Airpod"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Apple Magic Mouse",
+      "variants_count": 3,
+      "date": "2025-09-12",
+      "amount": 108.08,
+      "quantity": 25,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Mouse"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Apple Watch Ultra",
+      "variants_count": 0,
+      "date": "2025-09-08",
+      "amount": 988.08,
+      "quantity": 5,
+      "status": "In Progress",
+      "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Watch"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Mouse Pad",
+      "variants_count": 0,
+      "date": "2025-09-05",
+      "amount": 56.98,
+      "quantity": 80,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1629367494173-c78a56567877?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": [
+        "Mouse"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Digital License Key",
+      "variants_count": 5,
+      "date": "2025-09-20",
+      "amount": 49.99,
+      "quantity": 450,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "digital",
+      "tags": []
+    },
+    {
+      "id": 9,
+      "name": "Software Subscription",
+      "variants_count": 1,
+      "date": "2025-09-18",
+      "amount": 199,
+      "quantity": 120,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "digital",
+      "tags": []
+    },
+    {
+      "id": 10,
+      "name": "Power Drill Set",
+      "variants_count": 4,
+      "date": "2025-09-10",
+      "amount": 89.99,
+      "quantity": 120,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=100&h=100&fit=crop",
+      "category": "Tools",
+      "type": "physical",
+      "tags": []
+    },
+    {
+      "id": 11,
+      "name": "Wireless Headphones",
+      "variants_count": 2,
+      "date": "2025-09-25",
+      "amount": 149,
+      "quantity": 30,
+      "status": "In Progress",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop",
+      "category": "Electronics",
+      "type": "physical",
+      "tags": []
+    },
+    {
+      "id": 12,
+      "name": "Office Chair",
+      "variants_count": 3,
+      "date": "2025-09-01",
+      "amount": 299,
+      "quantity": 25,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=100&h=100&fit=crop",
+      "category": "Furniture",
+      "type": "physical",
+      "tags": []
+    },
+    {
+      "id": 13,
+      "name": "Desk Lamp",
+      "variants_count": 2,
+      "date": "2025-09-14",
+      "amount": 45,
+      "quantity": 120,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=100&h=100&fit=crop",
+      "category": "Furniture",
+      "type": "physical",
+      "tags": []
+    },
+    {
+      "id": 14,
+      "name": "Cotton T-Shirt",
+      "variants_count": 8,
+      "date": "2025-09-07",
+      "amount": 29.99,
+      "quantity": 150,
+      "status": "Complete",
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9ef17ab?w=100&h=100&fit=crop",
+      "category": "Clothes",
+      "type": "physical",
+      "tags": []
+    }
+  ]
+}

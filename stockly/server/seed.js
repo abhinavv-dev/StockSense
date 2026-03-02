@@ -1,59 +1,27 @@
 import db from "./db.js";
 
 /**
- * Static database seed - products with quantity to produce dashboard stats matching design:
- * - Inventory: ~321,767 total, 42% Digital Goods
- * - Sales: Electronics 89,922, Tools 41,954, Clothes 21,082, Furniture 17,561 (total 170,519)
- * - Total Product Sell: 89,922+ (metric card)
- * - Churn: ~12%, Demand/Supply with May ~3.5M
+ * Stockly-export products - 14 items matching stockly-export.csv format.
+ * Export CSV uses: id, name, variants_count, date, amount, status, category, type (no quantity).
  */
 const seedProducts = [
-  // Electronics - total target 89,922
   { id: 1, name: "Apple Airpod 2nd Gen", variants_count: 3, date: "2025-09-22", amount: 289, quantity: 15, status: "Complete", image: "https://images.unsplash.com/photo-1572569028738-411a197b83f2?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Airpod"] },
-  { id: 2, name: "Macbook Pro 16\" 32/1TB", variants_count: 2, date: "2025-09-15", amount: 2890, quantity: 8, status: "Complete", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca4?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Laptop"] },
+  { id: 2, name: "Macbook Pro 16\" 32/1TB", variants_count: 2, date: "2025-09-15", amount: 2890, quantity: 8, status: "Pending", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca4?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Laptop"] },
   { id: 3, name: "Gaming Mouse Pad", variants_count: 9, date: "2025-09-15", amount: 18, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Mouse"] },
   { id: 4, name: "Apple Airpod Max", variants_count: 0, date: "2025-09-12", amount: 579, quantity: 6, status: "In Progress", image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Airpod"] },
   { id: 5, name: "Apple Magic Mouse", variants_count: 3, date: "2025-09-12", amount: 108.08, quantity: 25, status: "Complete", image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Mouse"] },
   { id: 6, name: "Apple Watch Ultra", variants_count: 0, date: "2025-09-08", amount: 988.08, quantity: 5, status: "In Progress", image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Watch"] },
   { id: 7, name: "Mouse Pad", variants_count: 0, date: "2025-09-05", amount: 56.98, quantity: 80, status: "Complete", image: "https://images.unsplash.com/photo-1629367494173-c78a56567877?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Mouse"] },
-  { id: 8, name: "iPhone 15 Pro", variants_count: 4, date: "2025-08-28", amount: 1199, quantity: 12, status: "Complete", image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["iPhone"] },
-  { id: 9, name: "iMac 24\" M3", variants_count: 2, date: "2025-08-20", amount: 1499, quantity: 6, status: "Complete", image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["iMac"] },
-  { id: 10, name: "Digital License Key", variants_count: 5, date: "2025-09-20", amount: 49.99, quantity: 450, status: "Complete", image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
-  { id: 11, name: "Software Subscription", variants_count: 1, date: "2025-09-18", amount: 199, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
-  { id: 12, name: "Wireless Headphones", variants_count: 2, date: "2025-09-25", amount: 149, quantity: 30, status: "Complete", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
-  { id: 13, name: "USB-C Hub", variants_count: 6, date: "2025-06-02", amount: 79, quantity: 90, status: "Complete", image: "https://images.unsplash.com/photo-1625723044792-44de16ccb4e71?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
-  { id: 14, name: "Mechanical Keyboard", variants_count: 3, date: "2025-06-15", amount: 129, quantity: 55, status: "Complete", image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
-  { id: 15, name: "Webcam HD", variants_count: 0, date: "2025-09-10", amount: 129, quantity: 40, status: "Complete", image: "https://images.unsplash.com/photo-1575908524892-1ad945696395?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
-  { id: 16, name: "Wireless Charger", variants_count: 4, date: "2025-10-12", amount: 48, quantity: 95, status: "Complete", image: "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
-  // Tools - total target 41,954
-  { id: 17, name: "Power Drill Set", variants_count: 4, date: "2025-09-10", amount: 89.99, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=100&h=100&fit=crop", category: "Tools", type: "physical", tags: [] },
-  { id: 18, name: "Wrench Set", variants_count: 2, date: "2025-06-22", amount: 68, quantity: 85, status: "Complete", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=100&h=100&fit=crop", category: "Tools", type: "physical", tags: [] },
-  { id: 19, name: "Cordless Screwdriver", variants_count: 2, date: "2025-11-14", amount: 119, quantity: 65, status: "Complete", image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=100&h=100&fit=crop", category: "Tools", type: "physical", tags: [] },
-  { id: 20, name: "Tool Cabinet", variants_count: 1, date: "2025-07-10", amount: 349, quantity: 25, status: "Complete", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=100&h=100&fit=crop", category: "Tools", type: "physical", tags: [] },
-  { id: 21, name: "Bench Grinder", variants_count: 0, date: "2025-05-15", amount: 189, quantity: 40, status: "Pending", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=100&h=100&fit=crop", category: "Tools", type: "physical", tags: [] },
-  // Clothes - total target 21,082
-  { id: 22, name: "Cotton T-Shirt", variants_count: 8, date: "2025-09-07", amount: 29.99, quantity: 150, status: "Complete", image: "https://images.unsplash.com/photo-1521572163474-6864f9ef17ab?w=100&h=100&fit=crop", category: "Clothes", type: "physical", tags: [] },
-  { id: 23, name: "Denim Jacket", variants_count: 5, date: "2025-08-05", amount: 89.99, quantity: 85, status: "Complete", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=100&h=100&fit=crop", category: "Clothes", type: "physical", tags: [] },
-  { id: 24, name: "Winter Coat", variants_count: 6, date: "2025-11-05", amount: 179, quantity: 35, status: "Complete", image: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=100&h=100&fit=crop", category: "Clothes", type: "physical", tags: [] },
-  { id: 25, name: "Running Shoes", variants_count: 4, date: "2025-07-22", amount: 129, quantity: 60, status: "Complete", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop", category: "Clothes", type: "physical", tags: [] },
-  { id: 26, name: "Leather Belt", variants_count: 3, date: "2025-08-12", amount: 45, quantity: 95, status: "Complete", image: "https://images.unsplash.com/photo-1624222247344-550fb60583b1?w=100&h=100&fit=crop", category: "Clothes", type: "physical", tags: [] },
-  // Furniture - total target 17,561
-  { id: 27, name: "Office Chair", variants_count: 3, date: "2025-09-01", amount: 299, quantity: 25, status: "Complete", image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
-  { id: 28, name: "Desk Lamp", variants_count: 2, date: "2025-09-14", amount: 45, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
-  { id: 29, name: "Standing Desk", variants_count: 2, date: "2025-09-01", amount: 449, quantity: 12, status: "Complete", image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
-  { id: 30, name: "Monitor Stand", variants_count: 1, date: "2025-07-08", amount: 89, quantity: 65, status: "Complete", image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
-  { id: 31, name: "Bookshelf", variants_count: 2, date: "2025-06-10", amount: 199, quantity: 22, status: "Complete", image: "https://images.unsplash.com/photo-1594620302200-9a762244a156?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
-  // More digital for 42% inventory split
-  { id: 32, name: "Cloud Storage Plan", variants_count: 1, date: "2025-07-25", amount: 99, quantity: 380, status: "Complete", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
-  { id: 33, name: "VPN Subscription", variants_count: 1, date: "2025-08-20", amount: 59.99, quantity: 520, status: "Complete", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
-  { id: 34, name: "Project Management Tool", variants_count: 1, date: "2025-10-20", amount: 299, quantity: 95, status: "Complete", image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
-  { id: 35, name: "Smart Watch Band", variants_count: 7, date: "2025-08-12", amount: 35, quantity: 180, status: "Complete", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Watch"] },
-  { id: 36, name: "Laptop Sleeve", variants_count: 8, date: "2025-09-18", amount: 42, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: ["Laptop"] },
-  { id: 37, name: "Premium Headset", variants_count: 4, date: "2025-07-18", amount: 199, quantity: 45, status: "Complete", image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
-  { id: 38, name: "Bluetooth Speaker", variants_count: 5, date: "2025-11-22", amount: 89, quantity: 60, status: "In Progress", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
+  { id: 8, name: "Digital License Key", variants_count: 5, date: "2025-09-20", amount: 49.99, quantity: 450, status: "Complete", image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
+  { id: 9, name: "Software Subscription", variants_count: 1, date: "2025-09-18", amount: 199, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=100&h=100&fit=crop", category: "Electronics", type: "digital", tags: [] },
+  { id: 10, name: "Power Drill Set", variants_count: 4, date: "2025-09-10", amount: 89.99, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=100&h=100&fit=crop", category: "Tools", type: "physical", tags: [] },
+  { id: 11, name: "Wireless Headphones", variants_count: 2, date: "2025-09-25", amount: 149, quantity: 30, status: "In Progress", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop", category: "Electronics", type: "physical", tags: [] },
+  { id: 12, name: "Office Chair", variants_count: 3, date: "2025-09-01", amount: 299, quantity: 25, status: "Complete", image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
+  { id: 13, name: "Desk Lamp", variants_count: 2, date: "2025-09-14", amount: 45, quantity: 120, status: "Complete", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=100&h=100&fit=crop", category: "Furniture", type: "physical", tags: [] },
+  { id: 14, name: "Cotton T-Shirt", variants_count: 8, date: "2025-09-07", amount: 29.99, quantity: 150, status: "Complete", image: "https://images.unsplash.com/photo-1521572163474-6864f9ef17ab?w=100&h=100&fit=crop", category: "Clothes", type: "physical", tags: [] },
 ];
 
-const MIN_PRODUCTS_FOR_GRAPHS = 15;
+const MIN_PRODUCTS_FOR_GRAPHS = 14;
 
 function seed() {
   const data = db.run((d) => {

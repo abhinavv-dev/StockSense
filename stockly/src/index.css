@@ -1,1 +1,49 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+.stocksense-dark {
+  color-scheme: dark;
+}
+
+.stocksense-dark body {
+  background-color: #020617; /* slate-950 */
+  color: #e5e7eb; /* gray-200 */
+}
+
+.stocksense-dark header,
+.stocksense-dark main .bg-white {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+}
+
+.stocksense-dark .border-gray-100,
+.stocksense-dark .border-gray-200 {
+  border-color: rgba(148, 163, 184, 0.5) !important;
+}
+
+.stocksense-dark .text-gray-900,
+.stocksense-dark .text-gray-800,
+.stocksense-dark .text-gray-700,
+.stocksense-dark .text-gray-600,
+.stocksense-dark .text-gray-500 {
+  color: #e5e7eb !important;
+}
+
+.stocksense-dark .bg-gray-50,
+.stocksense-dark .bg-gray-100 {
+  background-color: #020617 !important;
+}
+
+.stocksense-dark input,
+.stocksense-dark select,
+.stocksense-dark textarea {
+  background-color: #020617;
+  color: #e5e7eb;
+}
+
+.stocksense-dark a {
+  color: #a5b4fc;
+}

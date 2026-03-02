@@ -3,12 +3,115 @@ import cors from "cors";
 import db from "./db.js";
 import { GREEN_PALETTE, BASELINE_DEMAND_SUPPLY, BASELINE_SALES_BY_CATEGORY } from "./analytics.js";
 import "./seed.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
+
+// Calendar events CSV (append-only log)
+const CAL_EVENTS_CSV = path.join(__dirname, "calendar_events.csv");
+
+function csvEscape(value) {
+  const s = String(value ?? "");
+  return `"${s.replace(/"/g, '""')}"`;
+}
+
+function parseCsvLine(line) {
+  // Minimal CSV parser for a single line supporting quoted fields.
+  const out = [];
+  let cur = "";
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        const next = line[i + 1];
+        if (next === '"') {
+          cur += '"';
+          i++;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        cur += ch;
+      }
+    } else {
+      if (ch === ",") {
+        out.push(cur);
+        cur = "";
+      } else if (ch === '"') {
+        inQuotes = true;
+      } else {
+        cur += ch;
+      }
+    }
+  }
+  out.push(cur);
+  return out;
+}
+
+function ensureCalendarCsv() {
+  if (!fs.existsSync(CAL_EVENTS_CSV)) {
+    fs.writeFileSync(CAL_EVENTS_CSV, "timestamp,date,event_id,action,title\n", "utf-8");
+  }
+}
+
+function readCalendarEventsState() {
+  ensureCalendarCsv();
+  const raw = fs.readFileSync(CAL_EVENTS_CSV, "utf-8");
+  const lines = raw.split(/\r?\n/).filter(Boolean);
+  const header = lines.shift();
+  if (!header) return {};
+
+  const byDate = {};
+  for (const line of lines) {
+    const [timestamp, date, eventId, action, title] = parseCsvLine(line);
+    if (!date || !eventId) continue;
+    byDate[date] = byDate[date] || [];
+    if (action === "remove") {
+      byDate[date] = byDate[date].filter((e) => e.id !== eventId);
+      continue;
+    }
+    // add
+    byDate[date].push({ id: eventId, title: title ?? "" });
+  }
+  // prune empties
+  for (const k of Object.keys(byDate)) {
+    if (!byDate[k].length) delete byDate[k];
+  }
+  return byDate;
+}
+
+app.get("/api/calendar/events", (req, res) => {
+  const state = readCalendarEventsState();
+  res.json({ eventsByDate: state });
+});
+
+app.post("/api/calendar/events", (req, res) => {
+  ensureCalendarCsv();
+  const { date, title, action, event_id } = req.body || {};
+  if (!date || typeof date !== "string") return res.status(400).json({ error: "date is required" });
+  if (action !== "add" && action !== "remove") return res.status(400).json({ error: "action must be add|remove" });
+  const eventId = String(event_id || Date.now());
+  const safeTitle = action === "add" ? String(title ?? "") : "";
+  const row = [
+    csvEscape(new Date().toISOString()),
+    csvEscape(date),
+    csvEscape(eventId),
+    csvEscape(action),
+    csvEscape(safeTitle),
+  ].join(",") + "\n";
+  fs.appendFileSync(CAL_EVENTS_CSV, row, "utf-8");
+  res.json({ ok: true, event_id: eventId });
+});
 
 function formatDate(isoDate) {
   const d = new Date(isoDate);
@@ -264,14 +367,14 @@ app.get("/api/metrics", (req, res) => {
 
 app.get("/api/export/csv", (req, res) => {
   const products = db.products;
-  const headers = ["id", "name", "variants_count", "date", "amount", "quantity", "status", "category", "type"];
+  const headers = ["id", "name", "variants_count", "date", "amount", "status", "category", "type"];
   const csv = [
     headers.join(","),
     ...products.map((r) => headers.map((h) => `"${String(r[h] ?? "").replace(/"/g, '""')}"`).join(",")),
   ].join("\n");
 
   res.setHeader("Content-Type", "text/csv");
-  res.setHeader("Content-Disposition", "attachment; filename=stocksense-export.csv");
+  res.setHeader("Content-Disposition", "attachment; filename=stockly-export.csv");
   res.send(csv);
 });
 

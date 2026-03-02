@@ -7,11 +7,14 @@ import { defineConfig, loadEnv } from 'vite';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default defineConfig(({mode}) => {
-  const env = loadEnv(mode, '.', '');
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, ".", "");
+  const isStatic = mode === "static" || env.VITE_STATIC === "true";
   return {
     plugins: [react(), tailwindcss()],
     build: {
+      outDir: isStatic ? "out" : "dist",
+      emptyOutDir: true,
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
@@ -23,7 +26,8 @@ export default defineConfig(({mode}) => {
       },
     },
     define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      "process.env.GEMINI_API_KEY": JSON.stringify(env.GEMINI_API_KEY),
+      "import.meta.env.VITE_STATIC": JSON.stringify(isStatic ? "true" : "false"),
     },
     resolve: {
       alias: {

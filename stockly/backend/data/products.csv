@@ -1,0 +1,15 @@
+id,sku,name,variants_count,date,amount,status,category,type
+1,P001,Apple Airpod 2nd Gen,3,2025-09-22,289,Complete,Electronics,physical
+2,P002,"Macbook Pro 16"" 32/1TB",2,2025-09-15,2890,Pending,Electronics,physical
+3,P003,Gaming Mouse Pad,9,2025-09-15,18,Complete,Electronics,physical
+4,P004,Apple Airpod Max,0,2025-09-12,579,In Progress,Electronics,physical
+5,P005,Apple Magic Mouse,3,2025-09-12,108.08,Complete,Electronics,physical
+6,P006,Apple Watch Ultra,0,2025-09-08,988.08,In Progress,Electronics,physical
+7,P007,Mouse Pad,0,2025-09-05,56.98,Complete,Electronics,physical
+8,P008,Digital License Key,5,2025-09-20,49.99,Complete,Electronics,digital
+9,P009,Software Subscription,1,2025-09-18,199,Complete,Electronics,digital
+10,P010,Power Drill Set,4,2025-09-10,89.99,Complete,Tools,physical
+11,P011,Wireless Headphones,2,2025-09-25,149,In Progress,Electronics,physical
+12,P012,Office Chair,3,2025-09-01,299,Complete,Furniture,physical
+13,P013,Desk Lamp,2,2025-09-14,45,Complete,Furniture,physical
+14,P014,Cotton T-Shirt,8,2025-09-07,29.99,Complete,Clothes,physical

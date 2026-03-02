@@ -4,9 +4,13 @@ import Header from "./components/Header";
 import { ProductsDashboard } from "./App";
 import InventoryIntelligencePage from "./pages/InventoryIntelligence";
 import SKUDemandAnalysis from "./pages/SKUDemandAnalysis";
+import CalendarPage from "./pages/Calendar";
+import CustomersPage from "./pages/Customers";
 
 function getRouteFromHash() {
   const hash = (window.location.hash || "#/").slice(1);
+  if (hash.startsWith("/calendar")) return "calendar";
+  if (hash.startsWith("/customers")) return "customers";
   if (hash.startsWith("/sku-demand-analysis")) return "sku-demand-analysis";
   if (hash.startsWith("/inventory-intelligence")) return "inventory-intelligence";
   return "dashboard";
@@ -26,7 +30,11 @@ export default function RootApp() {
       <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-12">
         <Header />
         <main className="max-w-[1600px] mx-auto px-6 pt-8">
-          {route === "sku-demand-analysis" ? (
+          {route === "calendar" ? (
+            <CalendarPage />
+          ) : route === "customers" ? (
+            <CustomersPage />
+          ) : route === "sku-demand-analysis" ? (
             <SKUDemandAnalysis />
           ) : route === "inventory-intelligence" ? (
             <InventoryIntelligencePage />
